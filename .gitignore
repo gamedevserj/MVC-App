@@ -111,7 +111,7 @@ _[Ss]cripts
 *.vsix
 *.vsixmanifest
 *.vscode/
-.vscode/
+.vs/
 
 # NuGet
 *.nupkg
