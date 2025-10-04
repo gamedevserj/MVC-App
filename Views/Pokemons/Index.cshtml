@@ -1,7 +1,83 @@
-﻿@model IEnumerable<MVCApp.Models.Pokemon>
+﻿@using MVCApp.Enums
+@model IEnumerable<MVCApp.Models.Pokemon>
 
 @{
     ViewData["Title"] = "Index";
+
+    PokemonType[] GetDistinctTypes(PokemonType type)
+    {
+        return Enum.GetValues<PokemonType>()
+            .Where(x => (type & x) > 0)
+            .Select(x => x)
+            .ToArray();
+    }
+
+    string GetBadgeColor(PokemonType type)
+    {
+        switch (type)
+        {
+            case PokemonType.None:
+                return "white";
+            case PokemonType.Normal:
+                return "#aaaa99";
+            case PokemonType.Bug:
+                return "#aabb22";
+            case PokemonType.Dragon:
+                return "#7766ee";
+            case PokemonType.Electric:
+                return "#ffcc33";
+            case PokemonType.Fighting:
+                return "#bb5544";
+            case PokemonType.Fire:
+                return "#ff4422";
+            case PokemonType.Flying:
+                return "#8899ff";
+            case PokemonType.Ghost:
+                return "#6666bb";
+            case PokemonType.Grass:
+                return "#77cc55";
+            case PokemonType.Ground:
+                return "#ddbb55";
+            case PokemonType.Ice:
+                return "#66ccff";
+            case PokemonType.Poison:
+                return "#aa5599";
+            case PokemonType.Psychic:
+                return "#ff5599";
+            case PokemonType.Rock:
+                return "#bbaa66";
+            case PokemonType.Water:
+                return "#3399ff";
+            default:
+                return "white";
+        }
+    }
+
+    string GetTriangle(string sortOrder)
+    {
+        if (ViewBag.CurrentSortOrder != sortOrder)
+            return " ";
+
+        var triangle = sortOrder.Contains("desc") ? "25B4" : "25BE";
+        return char.ConvertFromUtf32(Int32.Parse(triangle, System.Globalization.NumberStyles.HexNumber));
+    }
+
+    string GetColumnHeaderColor(string sortOrder)
+    {
+        return ViewBag.CurrentSortOrder == sortOrder ? "active-sort-column-header" : "inactive-sort-column-header";
+    }
+
+    string GetSortOrder(string sortOrder)
+    {
+        if (ViewBag.CurrentSortOrder != sortOrder)
+            return "";
+
+        // special case for emtypy default sort by name
+        if (ViewBag.CurrentSortOrder == "")
+            return "descending";
+
+        return ViewBag.CurrentSortOrder.Contains("desc") ? "ascending" : "descending";
+    }
 }
 
 <h1>Pokemons database</h1>
@@ -12,35 +88,65 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
+            <th class="@GetColumnHeaderColor(ViewBag.NameSortParam)">
+                @Html.ActionLink(
+                    @Html.DisplayNameFor(model => model.Name),
+                    "Index",
+                    new { sortOrder = ViewBag.NameSortParam },
+                    new { @class = $"column-header-name {GetSortOrder(ViewBag.NameSortParam)}" })
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
+            <th class="@GetColumnHeaderColor(ViewBag.TypeSortParam)">
+                @Html.ActionLink(
+                    @Html.DisplayNameFor(model => model.Type),
+                    "Index",
+                    new { sortOrder = ViewBag.TypeSortParam },
+                    new { @class = $"column-header-name {GetSortOrder(ViewBag.TypeSortParam)}" })
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Health)
+            <th class="@GetColumnHeaderColor(ViewBag.HealthSortParam)">
+                @Html.ActionLink(
+                    @Html.DisplayNameFor(model => model.Health),
+                    "Index",
+                    new { sortOrder = ViewBag.HealthSortParam },
+                    new { @class = $"column-header-name {GetSortOrder(ViewBag.HealthSortParam)}" })
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Attack)
+            <th class="@GetColumnHeaderColor(ViewBag.AttackSortParam)">
+                @Html.ActionLink(
+                    @Html.DisplayNameFor(model => model.Attack),
+                    "Index",
+                    new { sortOrder = ViewBag.AttackSortParam },
+                    new { @class = $"column-header-name {GetSortOrder(ViewBag.AttackSortParam)}" })
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Defense)
+            <th class="@GetColumnHeaderColor(ViewBag.DefenseSortParam)">
+                @Html.ActionLink(
+                    @Html.DisplayNameFor(model => model.Defense),
+                    "Index",
+                    new { sortOrder = ViewBag.DefenseSortParam },
+                    new { @class = $"column-header-name {GetSortOrder(ViewBag.DefenseSortParam)}" })
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Speed)
+            <th class="@GetColumnHeaderColor(ViewBag.SpeedSortParam)">
+                @Html.ActionLink(
+                    @Html.DisplayNameFor(model => model.Speed),
+                    "Index",
+                    new { sortOrder = ViewBag.SpeedSortParam },
+                    new { @class = $"column-header-name {GetSortOrder(ViewBag.SpeedSortParam)}" })
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="test">
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Type)
+                @{
+                    PokemonType[] types = GetDistinctTypes(item.Type);
+                    for (int i = 0; i < types.Length; i++)
+                    {
+                        <div class="type-badge" style="background-color:@GetBadgeColor(types[i])">@types[i]</div>
+                    }
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Health)

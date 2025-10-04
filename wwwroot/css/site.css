@@ -29,3 +29,44 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.type-badge {
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-color: black;
+    border-width: 1px;
+    border: solid;
+    display: inline-block;
+}
+
+.column-header-name {
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+}
+
+.column-header-name.ascending::after {
+    content: "\25B4";
+    position:fixed;
+}
+
+.column-header-name.descending::after {
+    content: "\25BE";
+    position: fixed;
+}
+
+tr:hover td {
+    background-color: #f7f7f7;
+}
+
+.active-sort-column-header {
+    background-color: #b4debd !important;
+}
+
+.inactive-sort-column-header {
+    background-color: #e2efbd !important;
+}

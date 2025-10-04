@@ -1,4 +1,4 @@
-﻿@model MVCApp.Models.Pokemon
+﻿@model MVCApp.Models.PokemonTypeViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,34 +13,36 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Pokemon.Name" class="control-label"></label>
+                <input asp-for="Pokemon.Name" class="form-control" />
+                <span asp-validation-for="Pokemon.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
+                <label asp-for="Pokemon.Type" class="control-label"></label>
+                <select asp-for="Pokemon.Type" asp-items="Model.Types" class="form-control" multiple>
+                </select>
+                <span asp-validation-for="Selected" class="text-danger"></span>
+            </div>
+            @* @Html.DropDownListFor(model => model.Selected, types, "-- Select Status --") *@
+            <div class="form-group">
+                <label asp-for="Pokemon.Health" class="control-label"></label>
+                <input asp-for="Pokemon.Health" class="form-control" />
+                <span asp-validation-for="Pokemon.Health" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Health" class="control-label"></label>
-                <input asp-for="Health" class="form-control" />
-                <span asp-validation-for="Health" class="text-danger"></span>
+                <label asp-for="Pokemon.Attack" class="control-label"></label>
+                <input asp-for="Pokemon.Attack" class="form-control" />
+                <span asp-validation-for="Pokemon.Attack" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Attack" class="control-label"></label>
-                <input asp-for="Attack" class="form-control" />
-                <span asp-validation-for="Attack" class="text-danger"></span>
+                <label asp-for="Pokemon.Defense" class="control-label"></label>
+                <input asp-for="Pokemon.Defense" class="form-control" />
+                <span asp-validation-for="Pokemon.Defense" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Defense" class="control-label"></label>
-                <input asp-for="Defense" class="form-control" />
-                <span asp-validation-for="Defense" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Speed" class="control-label"></label>
-                <input asp-for="Speed" class="form-control" />
-                <span asp-validation-for="Speed" class="text-danger"></span>
+                <label asp-for="Pokemon.Speed" class="control-label"></label>
+                <input asp-for="Pokemon.Speed" class="form-control" />
+                <span asp-validation-for="Pokemon.Speed" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
