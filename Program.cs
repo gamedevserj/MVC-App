@@ -1,9 +1,21 @@
+﻿using Microsoft.EntityFrameworkCore;
+using MVCApp.Data;
+using MVCApp.Models;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<MVCPokemonContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MVCPokemonContext") ?? throw new InvalidOperationException("Connection string 'MVCPokemonContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
