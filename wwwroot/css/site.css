@@ -42,10 +42,6 @@ body {
     display: inline-block;
 }
 
-.table > thead > tr > th {
-    background-color: #e2efbd;
-}
-
 .column-header-name {
     color: black;
     text-decoration: none;
@@ -68,7 +64,7 @@ tr:hover td {
 }
 
 .active-sort-column-header {
-    background-color: #b4debd !important;
+    background-color: #d1e7dd !important;
 }
 
 .delete-icon {
