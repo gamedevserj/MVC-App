@@ -3,7 +3,6 @@
 [Flags]
 public enum PokemonType
 {
-    None = 0,
     Normal = 1 << 0,
     Bug = 1 << 1,
     Dragon = 1 << 2,

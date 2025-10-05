@@ -106,6 +106,24 @@ public static class SeedData
                     Attack = 55,
                     Defense = 40,
                     Speed = 90,
+                },
+                new Pokemon
+                {
+                    Name = "Meowth",
+                    Type = Enums.PokemonType.Normal,
+                    Health = 40,
+                    Attack = 45,
+                    Defense = 35,
+                    Speed = 90,
+                },
+                new Pokemon
+                {
+                    Name = "Persian",
+                    Type = Enums.PokemonType.Normal,
+                    Health = 65,
+                    Attack = 70,
+                    Defense = 60,
+                    Speed = 115,
                 }
             );
             context.SaveChanges();

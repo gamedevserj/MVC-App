@@ -10,8 +10,8 @@ public class Pokemon
     [Required]
     public string Name { get; set; }
 
-    [Required]
-    public PokemonType Type { get; set; }
+    [Required(ErrorMessage = "Select at least one type")]
+    public PokemonType? Type { get; set; }
 
     [Range(0, 1000, ErrorMessage = "Please enter value between 0 and 1000")]
     public int Health { get; set; }

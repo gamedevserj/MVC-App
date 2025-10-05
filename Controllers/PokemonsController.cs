@@ -110,7 +110,6 @@ namespace MVCApp.Controllers
             var viewModel = new PokemonTypeViewModel
             {
                 Pokemon = new Pokemon(),
-                Selected = PokemonType.Normal,
                 Types = types,
             };
 
@@ -136,11 +135,8 @@ namespace MVCApp.Controllers
             var viewModel = new PokemonTypeViewModel
             {
                 Pokemon = pokemon,
-                Selected = pokemon.Type,
                 Types = types,
             };
-
-            Console.WriteLine("count = " + viewModel.Types.Count());
 
             return View(viewModel);
         }
@@ -232,29 +228,6 @@ namespace MVCApp.Controllers
         private bool PokemonExists(int id)
         {
             return _context.Pokemon.Any(e => e.Id == id);
-        }
-
-        private MultiSelectList GetPokemonTypeSelectList(PokemonType? selectedTypes = null)
-        {
-            var types = Enum.GetValues<PokemonType>()
-                .Where(t => t != PokemonType.None)
-                .Select(t => new
-                {
-                    Value = (int)t,
-                    Text = t.ToString()
-                })
-                .ToList();
-
-            var selectedValues = new List<int>();
-            if (selectedTypes.HasValue && selectedTypes.Value != PokemonType.None)
-            {
-                selectedValues = Enum.GetValues<PokemonType>()
-                    .Where(t => t != PokemonType.None && selectedTypes.Value.HasFlag(t))
-                    .Select(t => (int)t)
-                    .ToList();
-            }
-
-            return new MultiSelectList(types, "Value", "Text", selectedValues);
         }
     }
 }

@@ -51,12 +51,12 @@ body {
 
 .column-header-name.ascending::after {
     content: "\25B4";
-    position:fixed;
+    position: absolute;
 }
 
 .column-header-name.descending::after {
     content: "\25BE";
-    position: fixed;
+    position: absolute;
 }
 
 tr:hover td {
