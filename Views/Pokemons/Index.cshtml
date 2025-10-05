@@ -4,53 +4,6 @@
 @{
     ViewData["Title"] = "Index";
 
-    PokemonType[] GetDistinctTypes(PokemonType? type)
-    {
-        return Enum.GetValues<PokemonType>()
-            .Where(x => (type & x) > 0)
-            .Select(x => x)
-            .ToArray();
-    }
-
-    string GetBadgeColor(PokemonType type)
-    {
-        switch (type)
-        {
-            case PokemonType.Normal:
-                return "#aaaa99";
-            case PokemonType.Bug:
-                return "#aabb22";
-            case PokemonType.Dragon:
-                return "#7766ee";
-            case PokemonType.Electric:
-                return "#ffcc33";
-            case PokemonType.Fighting:
-                return "#bb5544";
-            case PokemonType.Fire:
-                return "#ff4422";
-            case PokemonType.Flying:
-                return "#8899ff";
-            case PokemonType.Ghost:
-                return "#6666bb";
-            case PokemonType.Grass:
-                return "#77cc55";
-            case PokemonType.Ground:
-                return "#ddbb55";
-            case PokemonType.Ice:
-                return "#66ccff";
-            case PokemonType.Poison:
-                return "#aa5599";
-            case PokemonType.Psychic:
-                return "#ff5599";
-            case PokemonType.Rock:
-                return "#bbaa66";
-            case PokemonType.Water:
-                return "#3399ff";
-            default:
-                return "white";
-        }
-    }
-
     string GetColumnHeaderColor(string sortOrder)
     {
         return ViewBag.CurrentSortOrder == sortOrder ? "active-sort-column-header" : "inactive-sort-column-header";
@@ -72,7 +25,7 @@
 <h1>Pokemons database</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Add pokemon</a>
 </p>
 <table class="table">
     <thead>
@@ -130,10 +83,10 @@
             </td>
             <td>
                 @{
-                    var types = GetDistinctTypes(item.Type);
+                    var types = Pokemon.GetDistinctTypes(item.Type);
                     for (int i = 0; i < types.Length; i++)
                     {
-                        <div class="type-badge" style="background-color:@GetBadgeColor(types[i])">@types[i]</div>
+                        <div class="type-badge" style="background-color:@Pokemon.GetBadgeColor(types[i])">@types[i]</div>
                     }
                 }
             </td>
