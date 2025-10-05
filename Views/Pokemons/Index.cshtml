@@ -27,6 +27,12 @@
 <p>
     <a asp-action="Create" class="btn btn-primary">Add pokemon</a>
 </p>
+<form asp-controller="Pokemons" asp-action="Index" method="get">
+    <p>
+        <label>Name: <input type="text" name="Search" /></label>
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr class="table-primary">
@@ -34,42 +40,42 @@
                 @Html.ActionLink(
                     @Html.DisplayNameFor(model => model.Name),
                     "Index",
-                    new { sortOrder = ViewBag.NameSortParam },
+                    new { sortOrder = ViewBag.NameSortParam, search = ViewBag.Search },
                     new { @class = $"column-header-name {GetSortOrder(ViewBag.NameSortParam)}" })
             </th>
             <th class="@GetColumnHeaderColor(ViewBag.TypeSortParam)">
                 @Html.ActionLink(
                     @Html.DisplayNameFor(model => model.Type),
                     "Index",
-                    new { sortOrder = ViewBag.TypeSortParam },
+                    new { sortOrder = ViewBag.TypeSortParam, search = ViewBag.Search },
                     new { @class = $"column-header-name {GetSortOrder(ViewBag.TypeSortParam)}" })
             </th>
             <th class="@GetColumnHeaderColor(ViewBag.HealthSortParam)">
                 @Html.ActionLink(
                     @Html.DisplayNameFor(model => model.Health),
                     "Index",
-                    new { sortOrder = ViewBag.HealthSortParam },
+                    new { sortOrder = ViewBag.HealthSortParam, search = ViewBag.Search },
                     new { @class = $"column-header-name {GetSortOrder(ViewBag.HealthSortParam)}" })
             </th>
             <th class="@GetColumnHeaderColor(ViewBag.AttackSortParam)">
                 @Html.ActionLink(
                     @Html.DisplayNameFor(model => model.Attack),
                     "Index",
-                    new { sortOrder = ViewBag.AttackSortParam },
+                    new { sortOrder = ViewBag.AttackSortParam, search = ViewBag.Search },
                     new { @class = $"column-header-name {GetSortOrder(ViewBag.AttackSortParam)}" })
             </th>
             <th class="@GetColumnHeaderColor(ViewBag.DefenseSortParam)">
                 @Html.ActionLink(
                     @Html.DisplayNameFor(model => model.Defense),
                     "Index",
-                    new { sortOrder = ViewBag.DefenseSortParam },
+                    new { sortOrder = ViewBag.DefenseSortParam, search = ViewBag.Search },
                     new { @class = $"column-header-name {GetSortOrder(ViewBag.DefenseSortParam)}" })
             </th>
             <th class="@GetColumnHeaderColor(ViewBag.SpeedSortParam)">
                 @Html.ActionLink(
                     @Html.DisplayNameFor(model => model.Speed),
                     "Index",
-                    new { sortOrder = ViewBag.SpeedSortParam },
+                    new { sortOrder = ViewBag.SpeedSortParam, search = ViewBag.Search },
                     new { @class = $"column-header-name {GetSortOrder(ViewBag.SpeedSortParam)}" })
             </th>
             <th></th>

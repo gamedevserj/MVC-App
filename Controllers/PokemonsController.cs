@@ -17,7 +17,7 @@ namespace MVCApp.Controllers
         }
 
         // GET: Pokemons
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string search)
         {
             ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.TypeSortParam = sortOrder == "type" ? "type_desc" : "type";
@@ -25,9 +25,15 @@ namespace MVCApp.Controllers
             ViewBag.AttackSortParam = sortOrder == "attack" ? "attack_desc" : "attack";
             ViewBag.DefenseSortParam = sortOrder == "defense" ? "defense_desc" : "defense";
             ViewBag.SpeedSortParam = sortOrder == "speed" ? "speed_desc" : "speed";
+            ViewBag.Search = search;
 
             var pokemons = from pokemon in _context.Pokemon
                            select pokemon;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                pokemons = pokemons.Where(s => s.Name!.ToUpper().Contains(search.ToUpper()));
+            }
 
             switch (sortOrder)
             {
