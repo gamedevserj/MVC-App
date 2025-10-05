@@ -154,7 +154,15 @@ namespace MVCApp.Controllers
             {
                 return NotFound();
             }
-            return View(pokemon);
+
+            var types = new SelectList(Enum.GetValues<PokemonType>());
+
+            var viewModel = new PokemonTypeViewModel
+            {
+                Pokemon = pokemon,
+                Types = types,
+            };
+            return View(viewModel);
         }
 
         // POST: Pokemons/Edit/5
@@ -189,7 +197,15 @@ namespace MVCApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(pokemon);
+
+            var types = new SelectList(Enum.GetValues<PokemonType>());
+
+            var viewModel = new PokemonTypeViewModel
+            {
+                Pokemon = pokemon,
+                Types = types,
+            };
+            return View(viewModel);
         }
 
         // GET: Pokemons/Delete/5

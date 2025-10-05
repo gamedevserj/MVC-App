@@ -1,4 +1,5 @@
-﻿@model MVCApp.Models.Pokemon
+﻿@using Newtonsoft.Json
+@model MVCApp.Models.PokemonTypeViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,36 +13,37 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Pokemon.Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Pokemon.Name" class="control-label"></label>
+                <input asp-for="Pokemon.Name" class="form-control" />
+                <span asp-validation-for="Pokemon.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
+                <label asp-for="Pokemon.Type" class="control-label"></label>
+                <select asp-for="Pokemon.Type" asp-items="Model.Types" class="form-select" multiple id="types-select">
+                </select>
+                <span asp-validation-for="Pokemon.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Health" class="control-label"></label>
-                <input asp-for="Health" class="form-control" />
-                <span asp-validation-for="Health" class="text-danger"></span>
+                <label asp-for="Pokemon.Health" class="control-label"></label>
+                <input asp-for="Pokemon.Health" class="form-control" />
+                <span asp-validation-for="Pokemon.Health" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Attack" class="control-label"></label>
-                <input asp-for="Attack" class="form-control" />
-                <span asp-validation-for="Attack" class="text-danger"></span>
+                <label asp-for="Pokemon.Attack" class="control-label"></label>
+                <input asp-for="Pokemon.Attack" class="form-control" />
+                <span asp-validation-for="Pokemon.Attack" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Defense" class="control-label"></label>
-                <input asp-for="Defense" class="form-control" />
-                <span asp-validation-for="Defense" class="text-danger"></span>
+                <label asp-for="Pokemon.Defense" class="control-label"></label>
+                <input asp-for="Pokemon.Defense" class="form-control" />
+                <span asp-validation-for="Pokemon.Defense" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Speed" class="control-label"></label>
-                <input asp-for="Speed" class="form-control" />
-                <span asp-validation-for="Speed" class="text-danger"></span>
+                <label asp-for="Pokemon.Speed" class="control-label"></label>
+                <input asp-for="Pokemon.Speed" class="form-control" />
+                <span asp-validation-for="Pokemon.Speed" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -56,4 +58,27 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/lib/select2/js/select2.min.js"></script>
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function() {
+
+            var option = $('#types-select > option');
+            var type = "@Model.Pokemon.Type";
+
+            // selecting the types of this pokemon
+            option.each(function() {
+                if (type.includes(this.value))
+                {
+                    this.selected = true;
+                }
+            });
+
+            $('#types-select').select2({
+                placeholder: 'Select types',
+                allowClear: true
+            });
+        });
+    </script>
 }
