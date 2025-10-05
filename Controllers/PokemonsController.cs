@@ -105,14 +105,7 @@ namespace MVCApp.Controllers
         // GET: Pokemons/Create
         public IActionResult Create()
         {
-            var types = new SelectList(Enum.GetValues<PokemonType>());
-
-            var viewModel = new PokemonTypeViewModel
-            {
-                Pokemon = new Pokemon(),
-                Types = types,
-            };
-
+            var viewModel = GetViewModel(new Pokemon());
             return View(viewModel);
         }
 
@@ -130,14 +123,7 @@ namespace MVCApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var types = new SelectList(Enum.GetValues<PokemonType>());
-
-            var viewModel = new PokemonTypeViewModel
-            {
-                Pokemon = pokemon,
-                Types = types,
-            };
-
+            var viewModel = GetViewModel(pokemon);
             return View(viewModel);
         }
 
@@ -155,13 +141,7 @@ namespace MVCApp.Controllers
                 return NotFound();
             }
 
-            var types = new SelectList(Enum.GetValues<PokemonType>());
-
-            var viewModel = new PokemonTypeViewModel
-            {
-                Pokemon = pokemon,
-                Types = types,
-            };
+            var viewModel = GetViewModel(pokemon);
             return View(viewModel);
         }
 
@@ -198,13 +178,7 @@ namespace MVCApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var types = new SelectList(Enum.GetValues<PokemonType>());
-
-            var viewModel = new PokemonTypeViewModel
-            {
-                Pokemon = pokemon,
-                Types = types,
-            };
+            var viewModel = GetViewModel(pokemon);
             return View(viewModel);
         }
 
@@ -244,6 +218,17 @@ namespace MVCApp.Controllers
         private bool PokemonExists(int id)
         {
             return _context.Pokemon.Any(e => e.Id == id);
+        }
+
+        private static PokemonTypeViewModel GetViewModel(Pokemon pokemon)
+        {
+            var types = new SelectList(Enum.GetValues<PokemonType>());
+
+            return new PokemonTypeViewModel
+            {
+                Pokemon = pokemon,
+                Types = types,
+            };
         }
     }
 }
